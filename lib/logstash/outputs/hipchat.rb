@@ -28,14 +28,18 @@ class LogStash::Outputs::HipChat < LogStash::Outputs::Base
   # Message format to send, event tokens are usable here.
   config :format, :validate => :string, :default => "%{message}"
 
+  # Url for hipchat api
+  config :api, :validate => :string, :default => "https://api.hipchat.com/v2/room?auth_token="
+
   public
   def register
     require "ftw"
     require "uri"
 
     @agent = FTW::Agent.new
+    @agent.configuration[FTW::Agent::SSL_VERSION] = "TLSv1.1"
 
-    @url = "https://api.hipchat.com/v1/rooms/message?auth_token=" + @token
+    @url = @api + @token
     @content_type = "application/x-www-form-urlencoded"
   end # def register
 
