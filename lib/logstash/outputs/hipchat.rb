@@ -40,7 +40,7 @@ class LogStash::Outputs::HipChat < LogStash::Outputs::Base
     @agent.configuration[FTW::Agent::SSL_VERSION] = "TLSv1.1"
 
     @url = @api + @token
-    @content_type = "application/x-www-form-urlencoded"
+    @content_type = "application/json"
   end # def register
 
   public
